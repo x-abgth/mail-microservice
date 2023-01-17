@@ -1,0 +1,80 @@
+version: '3'
+
+
+services:
+  # For broker microservice
+  broker-service:
+    build: 
+      context: ./../broker-service
+      dockerfile: ./../broker-service/broker-service.dockerfile
+    restart: always
+    ports: 
+      - "8080:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - postgres
+    
+  # For logger microservice
+  logger-service:
+    build: 
+      context: ./../logger-service
+      dockerfile: ./../logger-service/logger-service.dockerfile
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    depends_on:
+      - mongo
+
+  # For authentication microservice
+  authentication-service:
+    build:
+      context: ./../authentication-service
+      dockerfile: ./../authentication-service/authentication-service.dockerfile
+    restart: always
+    ports:
+      - "8081:80"
+    deploy: 
+      mode: replicated
+      replicas: 1
+    environment:
+      DSN: "host=postgres port=5432 user=postgres password=abgthgo123 dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+    depends_on:
+      - postgres
+
+  # For postgres database of users
+  postgres:
+    image: 'postgres:14.6-alpine'
+    ports:
+      - "5432:5432"
+    restart: always
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abgthgo123
+      POSTGRES_DB: users
+    volumes: 
+      - type: bind
+        source: ./db-data/postgres/
+        target: /var/lib/postgresql/data/
+
+  # For mongo database of loggers
+  mongo:
+    image: 'mongo:latest'
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: logs
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  # For mail microservice
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    ports: 
+      - "1025:1025"
+      - "8025:8025"
