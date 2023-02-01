@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+	<title>Login Page</title>
+    <style>
+        .row{
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            width: 70%;
+            margin: 10px;
+        }
+
+        .row input{
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .row label{
+            margin-bottom: 5px;
+        }
+
+        section {
+            height: 80%;
+        }
+
+        section, section form {
+            width: 30vw;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+        }
+
+        section h2{
+            color: #002651;
+            font-family: 'Dancing Script', cursive;
+            margin-bottom: 50px;
+        }
+
+        #register-sec{
+            background:#f0f0f0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        #login-sec{
+            background:#fcefee;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .submit-bt{
+            background: #8601bf;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 15px;
+            margin: 20px 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .submit-bt:hover {
+            background: #9f0fef;
+        }
+    </style>
+    
+</head>
+<body style="height:100vh; display:flex; justify-content:center; align-items:center;">
+    <section id="login-sec">
+        <h2>LOGIN FORM</h2>
+        <form action="/login" method="post">
+        <div class="row">
+            <label for="login-email">e-mail id: </label>
+            <input name="email" id="login-email" type="text" required></input>
+        </div>
+        <div class="row">
+            <label for="login-password">password: </label>
+            <input name="password" id="login-password" type="password" required></input>
+        </div>
+        <button class="submit-bt" id="login-bt" type="submit">LOGIN</button>
+       </form>
+    </section>
+
+    <section id="register-sec">
+        <h2>REGISTER FORM</h2>
+        <form action="/register" method="post">
+            <div class="row">
+                <label for="register-email">e-mail id: </label>
+                <input name="email" id="register-email" type="text" required></input>
+            </div>
+            <div class="row">
+                <label for="register-password">password: </label>
+                <input name="password" id="register-password" type="password" required></input>
+            </div>
+            <button class="submit-bt" id="register-bt" type="submit">REGISTER</button>
+        </form>
+    </section>
+</body>
+</html>

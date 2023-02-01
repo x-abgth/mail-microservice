@@ -29,5 +29,8 @@ func (app *Config) routes() http.Handler {
 	// create a new route
 	mux.Post("/authenticate", app.Authenticate)
 
+	mux.Post("/register", app.Register)
+	mux.Post("/get-user", app.GetUser)
+
 	return mux
 }
