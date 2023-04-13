@@ -32,16 +32,11 @@ func (app *Config) Register(w http.ResponseWriter, r *http.Request) {
 	user.LastName = ""
 	user.Active = 1
 
-	fmt.Println("The user data is -> ")
-	fmt.Println(user)
-
 	userID, err := app.Models.User.Insert(user)
 	if err != nil {
 		app.errorJSON(w, err)
 		return
 	}
-
-	fmt.Println("User data inserted successfully with id =", userID)
 
 	// log authentication
 	err = app.logRequest("authentication", fmt.Sprintf("%s registered in as id %d", user.Email, userID))

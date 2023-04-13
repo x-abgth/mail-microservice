@@ -280,7 +280,6 @@ func render(w http.ResponseWriter, t string) {
 }
 
 func checkJWTAuthorization(r *http.Response) (*http.Cookie, error) {
-
 	cook := r.Cookies()
 	var c *http.Cookie
 	for _, cookie := range cook {

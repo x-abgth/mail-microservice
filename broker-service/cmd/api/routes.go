@@ -32,6 +32,9 @@ func (app *Config) routes() http.Handler {
 
 	// handle function
 	mux.Post("/", app.Broker)
+
+	mux.Post("/log-grpc", app.logItemViagRPC)
+
 	// this entrypoint of the where
 	// every microservice will request in
 	mux.Post("/handle", app.HanldeSubmission)
